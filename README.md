@@ -33,4 +33,4 @@ Aggregate data structures, where a lot of different, independent calculations ar
 * components nest, inner components can change without altering outer components
 * shadow DOM rebuilds the UI from scratch each time, but then uses hashes to decide what has actually changed
 
-`git graph-branch` is a good testbed, as it has a very complex and wide dependency DAG.
+`git graph-branch` is a good testbed, as it has a very complex and wide dependency DAG. Perhaps the best options would be to spike a non-nix version, then try different approaches to implementing `--watch` cleanly.
