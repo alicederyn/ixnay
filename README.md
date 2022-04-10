@@ -11,7 +11,7 @@ Key things that's different/difficult about git-graph-branch:
 
 * DAG changes over time
 * Invalidation signals are separate from data signals
-*:Shape of code is very sequential, not dataflow
+* Shape of code is very sequential, not dataflow
 * I think data can recombine? Not 100% sure
 
 Want to:
