@@ -3,6 +3,35 @@ nix in python proof-of-concept - calculate, invalidate, repeat
 
 ## Some thoughts so far
 
+### Notes from Feb
+
+git-graph-branch doesn't seem immediately compatible with Dataflow and reactive.
+
+Key things that's different/difficult about git-graph-branch:
+
+* DAG changes over time
+* Invalidation signals are separate from data signals
+*:Shape of code is very sequential, not dataflow
+* I think data can recombine? Not 100% sure
+
+Want to:
+
+1. Catch up on incoming invalidation data and determine everything that needs recalculating
+2. From the top of the graph, rerun all the computations, reusing anything that has not been invalidated
+3. Garbage-collect anything that wasn't reused
+4. Discard and restart some nodes if the incoming invalidation data is swamping us
+5. Asynchronously handle some data sources (network calls!), running them concurrently and merging in the results later
+6. Auto-batch some data sources? e.g. one call to GitHub rather than multiple
+
+1-3 is super similar to build systems!
+
+This is not a simple async-and-forget system, because we want a more phased approach to scheduling the work. Potentially leverage async scheduler under the hood? And we probably need async functions to describe code doing 5 + 6.
+
+Two kinds of live data source:
+
+* Updated — new data is pushed in
+* Invalidated — invalidation is pushed in, updates are explicit on-demand
+
 ### Transitioning between sync and async
 
 async (one-shot + generator) -> sync
